@@ -83,7 +83,13 @@ export default function LogVisit({ open, onClose, onSave, shops }) {
 
         <div className="field">
           <label htmlFor="shop">Where did they go?</label>
-          <select id="shop" value={shopId} onChange={(e) => { setShopId(e.target.value); setError('') }}>
+          <select id="shop" value={shopId} onChange={(e) => {
+            const v = e.target.value
+            setShopId(v)
+            const s = shops.find((x) => x.id === v)
+            if (s) setTeam(s.team)
+            setError('')
+          }}>
             <option value="">Choose a shop on the route…</option>
             {shops.map((s) => (
               <option key={s.id} value={s.id}>{s.name} — {s.area}</option>
